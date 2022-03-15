@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32228.430
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "WarehouseManager-Frontend", "ReactWarehouseManager\WarehouseManager-Frontend.esproj", "{3A6CECBB-B928-4102-8868-3E2B29B8390A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarehouseManager-Backend", "WarehouseManagerASPNETCore-Backend\WarehouseManager-Backend.csproj", "{278902E7-D345-4743-AC22-7DB5BA8B13E6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A6CECBB-B928-4102-8868-3E2B29B8390A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6CECBB-B928-4102-8868-3E2B29B8390A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6CECBB-B928-4102-8868-3E2B29B8390A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3A6CECBB-B928-4102-8868-3E2B29B8390A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6CECBB-B928-4102-8868-3E2B29B8390A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A6CECBB-B928-4102-8868-3E2B29B8390A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{278902E7-D345-4743-AC22-7DB5BA8B13E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{278902E7-D345-4743-AC22-7DB5BA8B13E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{278902E7-D345-4743-AC22-7DB5BA8B13E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{278902E7-D345-4743-AC22-7DB5BA8B13E6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {47F4FA69-46BA-4E73-99FE-D9B97495D71C}
+	EndGlobalSection
+EndGlobal
