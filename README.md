@@ -1,2 +1,2 @@
-# cse550-warehouse-manager
+# Warehouse Manager
 Warehouse Manager application for CSE-550
