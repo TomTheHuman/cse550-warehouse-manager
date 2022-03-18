@@ -1,0 +1,15 @@
+{
+    "extends": "airbnb",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "rules": {
+        "linebreak-style": 0,
+        "react/jsx-filename-extension": 0
+    },
+    "env": {
+        "browser": true
+    }
+}
