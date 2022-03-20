@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import {
+  Routes, Route, useLocation, useNavigate,
+} from 'react-router-dom';
 import {
   AppBar, IconButton, Toolbar, Typography,
 } from '@mui/material';
@@ -15,11 +17,11 @@ import Users from './components/users/Users';
 
 export default function AppRouter() {
   const [currentTitle, setCurrentTitle] = useState('');
+  const [user, setUser] = useState({
+    type: '',
+  });
   const location = useLocation();
-
-  function handlePageTitle(pageTitle) {
-    setCurrentTitle(pageTitle);
-  }
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -43,32 +45,74 @@ export default function AppRouter() {
           >
             { currentTitle }
           </Typography>
+          <Typography
+            variant="subtitle2"
+            component="div"
+            sx={{ flexGrow: 1, textAlign: 'end' }}
+          >
+            { user.type.toLocaleUpperCase() }
+          </Typography>
         </Toolbar>
       </AppBar>
       <Routes>
         <Route
           path="/"
-          element={<Login setTitle={() => handlePageTitle()} />}
+          element={(
+            <Login
+              navigate={navigate}
+              setUser={setUser}
+            />
+          )}
         />
         <Route
           path="/home"
-          element={<Home setTitle={() => handlePageTitle()} />}
+          element={(
+            <Home
+              navigate={navigate}
+              setTitle={setCurrentTitle}
+              user={user}
+            />
+          )}
         />
         <Route
           path="/inventory"
-          element={<Inventory setTitle={() => handlePageTitle()} />}
+          element={(
+            <Inventory
+              navigate={navigate}
+              setTitle={setCurrentTitle}
+              user={user}
+            />
+          )}
         />
         <Route
           path="/suppliers"
-          element={<Suppliers setTitle={() => handlePageTitle()} />}
+          element={(
+            <Suppliers
+              navigate={navigate}
+              setTitle={setCurrentTitle}
+              user={user}
+            />
+          )}
         />
         <Route
           path="/orders"
-          element={<Orders setTitle={() => handlePageTitle()} />}
+          element={(
+            <Orders
+              navigate={navigate}
+              setTitle={setCurrentTitle}
+              user={user}
+            />
+          )}
         />
         <Route
           path="/users"
-          element={<Users setTitle={() => handlePageTitle()} />}
+          element={(
+            <Users
+              navigate={navigate}
+              setTitle={setCurrentTitle}
+              user={user}
+            />
+          )}
         />
       </Routes>
     </div>
