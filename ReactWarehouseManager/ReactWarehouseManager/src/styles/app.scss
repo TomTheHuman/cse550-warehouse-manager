@@ -1,3 +1,8 @@
-.appbar-hidden {
-  display: none;
+.app-root {
+  height: 100vh;
+  width: 100vw;
+
+  .appbar-hidden {
+    display: none;
+  }
 }

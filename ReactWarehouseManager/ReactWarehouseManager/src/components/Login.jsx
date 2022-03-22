@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import {
   Button, Grid, TextField, Typography,
 } from '@mui/material';
+import { Warehouse } from '@mui/icons-material';
+
+import '../styles/Login.scss';
 
 function Login(props) {
   const [username, setUsername] = useState('');
@@ -26,40 +29,51 @@ function Login(props) {
   }
 
   return (
-    <Grid container>
-      <div
-        className="login-container"
+    <Grid
+      className="login-container"
+      container
+    >
+      <form
+        className="form-container"
       >
-        <Typography variant="h1">
-          Warehouse Manager
-        </Typography>
+        <Grid className="form-title-container" container>
+          <Warehouse fontSize="large" />
+          <Typography
+            className="form-title"
+            variant="h1"
+          >
+            Warehouse Manager
+          </Typography>
+        </Grid>
         <TextField
-          className="login-input"
+          className="form-input"
           id="outline-basic"
-          variant="outlined"
+          variant="filled"
           label="Username"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
-          className="login-input"
+          className="form-input"
           id="outlined-basic"
-          variant="outlined"
+          variant="filled"
           type="password"
           label="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <Button
-          className="login-button"
+          className="form-button"
           id="pasword-button"
           type="submit"
           onClick={() => handleLogin()}
+          size="large"
+          variant="contained"
         >
           Login
         </Button>
-      </div>
+      </form>
     </Grid>
   );
 }
