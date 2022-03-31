@@ -16,7 +16,7 @@ import Suppliers from './components/suppliers/Suppliers';
 import Orders from './components/orders/Orders';
 import Users from './components/users/Users';
 
-import './styles/App.scss';
+import './styles/AppRouter.scss';
 
 export default function AppRouter() {
   const [currentTitle, setCurrentTitle] = useState('');
