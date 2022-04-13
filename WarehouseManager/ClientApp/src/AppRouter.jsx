@@ -9,7 +9,6 @@ import { Menu } from '@mui/icons-material';
 
 // Auth
 import { Box } from '@mui/system';
-import { Login as AuthLogin } from './components/api-authorization/Login';
 
 // Internal Components
 import Login from './components/Login';
@@ -121,10 +120,6 @@ export default function AppRouter() {
               user={user}
             />
           )}
-        />
-        <Route
-          path="/login"
-          element={(<AuthLogin />)}
         />
         <Route
           path="/inventory"
