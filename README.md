@@ -1,27 +1,5 @@
 # Warehouse Manager
 
-## Getting Started
-
-Open your terminal application (depending on your OS) and follow the steps below.
-
-Navigate to the `ClientApp` directory and run the following commands
-
-```shell
-npm install
-```
-
-Now open the project solution in Visual Studio. Once open use `F5` to launch the development build. This should build the ASP.NET Core back end and locally host the React front end.
-
-If asked to accept a security certificate, do so.
-
-To host the React front end independently, navigate to `ClientApp` and use the following command
-
-```shell
-npm run start
-```
-
-View the front end by navigating to `http://localhost:3000`.
-
 ## SQL
 
 ### Installation
@@ -91,3 +69,25 @@ The other option is connecting your ASP.NET Core development workspace to a host
 5. Open your terminal application and ...
 
 #TODO Finish Mac instructions
+
+## Running the App
+
+Open your terminal application (depending on your OS) and follow the steps below.
+
+Navigate to the `ClientApp` directory and run the following commands
+
+```shell
+npm install
+```
+
+Now open the project solution in Visual Studio. Once open use `F5` to launch the development build. This should build the ASP.NET Core back end and locally host the React front end.
+
+If asked to accept a security certificate, do so.
+
+To host the React front end independently, navigate to `ClientApp` and use the following command
+
+```shell
+npm run start
+```
+
+View the front end by navigating to `http://localhost:3000`.
