@@ -8,5 +8,7 @@ namespace WarehouseManager.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        // Used for authenticating routes on front end
+        public string AccountType { get; set; }
     }
 }

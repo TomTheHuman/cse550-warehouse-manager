@@ -24,7 +24,7 @@ function Login(props) {
         type: 'admin',
       };
       setUser(currentUser);
-      navigate('/home');
+      navigate('/login?returnUrl="/home"');
     }
   }
 

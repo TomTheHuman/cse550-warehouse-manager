@@ -7,8 +7,10 @@ import {
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 
-// Internal Components
+// Auth
 import { Box } from '@mui/system';
+
+// Internal Components
 import Login from './components/Login';
 import Home from './components/Home';
 import Inventory from './components/inventory/Inventory';
