@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
+
 namespace WarehouseManager.Models
 {
     public class Order
@@ -10,8 +11,10 @@ namespace WarehouseManager.Models
         public string OrderType { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Status { get; set; }
-        public DateTime CompletedDate { get; set; }
-        public ApplicationUser CompletedBy { get; set; }
+
+        #nullable enable
+        public DateTime? CompletedDate { get; set; }
+        public ApplicationUser? CompletedBy { get; set; }
 
     }
 }
