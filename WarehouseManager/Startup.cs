@@ -28,6 +28,8 @@ namespace WarehouseManager
         {
             services.AddControllers();
 
+            services.AddScoped<SQLInventoryItemRepository>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
