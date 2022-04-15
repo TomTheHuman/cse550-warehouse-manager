@@ -22,5 +22,15 @@ namespace WarehouseManager.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<OrderedItem> OrderedItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Set OrderedItem modem to [Keyless]
+            modelBuilder.Entity<OrderedItem>()
+                .HasNoKey();
+        }
     }
 }
