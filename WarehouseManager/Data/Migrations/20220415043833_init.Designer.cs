@@ -10,8 +10,8 @@ using WarehouseManager.Data;
 namespace WarehouseManager.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220415032314_EnableNullable")]
-    partial class EnableNullable
+    [Migration("20220415043833_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -412,6 +412,24 @@ namespace WarehouseManager.Data.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("WarehouseManager.Models.OrderedItem", b =>
+                {
+                    b.Property<int?>("InventoryItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasIndex("InventoryItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderedItems");
+                });
+
             modelBuilder.Entity("WarehouseManager.Models.Supplier", b =>
                 {
                     b.Property<int>("Id")
@@ -500,6 +518,21 @@ namespace WarehouseManager.Data.Migrations
                     b.Navigation("CompletedBy");
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("WarehouseManager.Models.OrderedItem", b =>
+                {
+                    b.HasOne("WarehouseManager.Models.InventoryItem", "InventoryItem")
+                        .WithMany()
+                        .HasForeignKey("InventoryItemId");
+
+                    b.HasOne("WarehouseManager.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.Navigation("InventoryItem");
+
+                    b.Navigation("Order");
                 });
 #pragma warning restore 612, 618
         }

@@ -29,13 +29,13 @@ VALUES
 GO
 
 -- Seed Inventory Items
-INSERT INTO InventoryItems (Description, Manufacturer, QuantityInStock, QuantityOnOrder, LocationId)
+INSERT INTO InventoryItems (Description, Manufacturer, QuantityInStock, QuantityOnOrder, Price, LocationId)
 VALUES
-	('Item 1', 'ACME Inc.', '5', '10', 'A1'),
-	('Item 2', 'Acme Inc.', '6', '12', 'A2'),
-	('Item 3', 'Acme Inc.', '7', '14', 'A3'),
-	('Item 4', 'Acme Inc.', '8', '16', 'A4'),
-	('Item 5', 'Acme Inc.', '9', '18', 'A5');
+	('Item 1', 'ACME Inc.', '5', '10', 100, 'A1'),
+	('Item 2', 'Acme Inc.', '6', '12', 150, 'A2'),
+	('Item 3', 'Acme Inc.', '7', '14', 200, 'A3'),
+	('Item 4', 'Acme Inc.', '8', '16', 250, 'A4'),
+	('Item 5', 'Acme Inc.', '9', '18', 300, 'A5');
 GO
 
 -- Seed Suppliers
@@ -61,3 +61,15 @@ VALUES
 	(4, 'Outgoing', '20220404 00:00:00 AM', 'Open', null, null);
 GO
 
+-- Seed Ordered Items
+INSERT INTO OrderedItems (OrderId, InventoryItemId, Quantity)
+VALUES
+	(1, 1, 5),
+	(1, 2, 10),
+	(1, 3, 15),
+	(1, 4, 20),
+	(2, 2, 10),
+	(2, 3, 20),
+	(2, 4, 30),
+	(2, 5, 40);
+GO
