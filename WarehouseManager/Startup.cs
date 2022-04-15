@@ -29,6 +29,10 @@ namespace WarehouseManager
             services.AddControllers();
 
             services.AddScoped<SQLInventoryItemRepository>();
+            services.AddScoped<SQLOrderRepository>();
+            services.AddScoped<SQLLocationRepository>();
+            services.AddScoped<SQLSupplierRepository>();
+
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
