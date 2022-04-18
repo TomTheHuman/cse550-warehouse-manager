@@ -1,0 +1,14 @@
+.button-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: row-reverse; 
+
+    .button {
+        margin-left: 8px;
+    }
+}
+.data-grid-container {
+    width: 100%;
+    height: 80vh;
+    padding: 24px;
+}
