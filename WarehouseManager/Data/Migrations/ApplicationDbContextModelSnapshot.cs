@@ -279,6 +279,12 @@ namespace WarehouseManager.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -336,10 +342,13 @@ namespace WarehouseManager.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LocationId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Manufacturer")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
                     b.Property<int>("QuantityInStock")
                         .HasColumnType("int");
@@ -348,6 +357,8 @@ namespace WarehouseManager.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("LocationId");
 
                     b.ToTable("InventoryItems");
                 });
@@ -375,7 +386,7 @@ namespace WarehouseManager.Data.Migrations
                     b.Property<string>("CompletedById")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CompletedDate")
+                    b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedDate")
@@ -397,6 +408,24 @@ namespace WarehouseManager.Data.Migrations
                     b.HasIndex("SupplierId");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("WarehouseManager.Models.OrderedItem", b =>
+                {
+                    b.Property<int?>("InventoryItemId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasIndex("InventoryItemId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderedItems");
                 });
 
             modelBuilder.Entity("WarehouseManager.Models.Supplier", b =>
@@ -465,6 +494,15 @@ namespace WarehouseManager.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("WarehouseManager.Models.InventoryItem", b =>
+                {
+                    b.HasOne("WarehouseManager.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
+
+                    b.Navigation("Location");
+                });
+
             modelBuilder.Entity("WarehouseManager.Models.Order", b =>
                 {
                     b.HasOne("WarehouseManager.Models.ApplicationUser", "CompletedBy")
@@ -478,6 +516,21 @@ namespace WarehouseManager.Data.Migrations
                     b.Navigation("CompletedBy");
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("WarehouseManager.Models.OrderedItem", b =>
+                {
+                    b.HasOne("WarehouseManager.Models.InventoryItem", "InventoryItem")
+                        .WithMany()
+                        .HasForeignKey("InventoryItemId");
+
+                    b.HasOne("WarehouseManager.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId");
+
+                    b.Navigation("InventoryItem");
+
+                    b.Navigation("Order");
                 });
 #pragma warning restore 612, 618
         }

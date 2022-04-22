@@ -44,6 +44,33 @@ sqlcmd -S "(localdb)\MSSQLLocalDB"
 
 You should see a list of table names including `AspNetRoles` and `InventoryItems`.
 
+#### Seed Database with Mock Data
+
+Navigate to the project root path (`/WarehouseManager`) and run provided SQL script using this commmand:
+
+```PowerShell
+sqlcmd -S "(localdb)\MSSQLLocalDB" -E -i "Data\seed.sql"
+```
+
+After this, you should have dummy data in all applicable project tables.
+
+**How do I reset my database?**
+
+```PowerShell
+sqlcmd -S "(localdb)\MSSQLLocalDB"
+```
+
+```SQL
+DROP DATABASE DevDb;
+Go
+```
+
+```PowerShell
+dotnet ef database update
+```
+
+After this, follow the steps above ('Seed Database with Mock Data') to re-seed data.
+
 ### Mac
 
 You can develop using Docker, however this can take time to configure. There are plenty of guides for ASP.NET Core and SQL development on Mac. One example is here.
