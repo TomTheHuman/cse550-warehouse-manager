@@ -3,7 +3,7 @@ import {
   Routes, Route, useLocation, useNavigate,
 } from 'react-router-dom';
 import {
-  AppBar, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography,
+  AppBar, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, Divider,
 } from '@mui/material';
 import { Menu } from '@mui/icons-material';
 
@@ -28,11 +28,11 @@ export default function AppRouter() {
   const [drawer, toggleDrawer] = useState(false);
 
   const pages = [
-    { name: 'Home', access: 'all' },
-    { name: 'Inventory', access: 'all' },
-    { name: 'Suppliers', access: 'admin' },
-    { name: 'Orders', access: 'all' },
-    { name: 'Users', access: 'admin' },
+    { name: 'Home', access: ['admin', 'user'], route: '/home' },
+    { name: 'Inventory', access: ['admin', 'user'], route: '/inventory' },
+    { name: 'Suppliers', access: ['admin'], route: '/suppliers' },
+    { name: 'Orders', access: ['admin', 'user'], route: '/orders' },
+    { name: 'Users', access: ['admin'], route: '/users' },
   ];
 
   const location = useLocation();
@@ -43,6 +43,15 @@ export default function AppRouter() {
       return;
     }
     toggleDrawer(open);
+  };
+
+  const handleLogout = () => {
+    // Reset User Object
+    setUser({
+      type: '',
+    });
+    // Navigate to Login Page
+    navigate('/');
   };
 
   return (
@@ -60,13 +69,25 @@ export default function AppRouter() {
         >
           <List>
             {pages.map((page) => (
-              (user.type === page.access || page.access === 'all')
+              (page.access.includes(user.type))
               && (
-              <ListItem button key={page.name.toLocaleLowerCase()}>
-                <ListItemText primary={page.name.toLocaleLowerCase()} />
+              <ListItem
+                button
+                key={page.name.toLocaleLowerCase()}
+                onClick={() => navigate(page.route)}
+              >
+                <ListItemText primary={page.name} />
               </ListItem>
               )
             ))}
+            <Divider />
+            <ListItem
+              button
+              key="logout"
+              onClick={() => handleLogout(setUser, navigate)}
+            >
+              <ListItemText primary="Logout" />
+            </ListItem>
           </List>
         </Box>
       </Drawer>
