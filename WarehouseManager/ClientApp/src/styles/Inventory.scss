@@ -12,3 +12,20 @@
     height: 80vh;
     padding: 24px;
 }
+
+.add-item-form {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    
+    .form-input {
+        margin: 16px;
+    }
+}
+
+
+
+.add-button-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
