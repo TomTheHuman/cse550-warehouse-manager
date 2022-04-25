@@ -1,0 +1,16 @@
+.suppliers-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: auto;
+}
+
+.add-supplier-container {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.drawer-item {
+    margin: 16px;
+}
