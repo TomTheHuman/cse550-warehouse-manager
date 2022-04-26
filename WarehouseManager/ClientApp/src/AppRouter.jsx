@@ -37,6 +37,8 @@ export default function AppRouter() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  // const baseUrl = window.location.origin;
+  const baseUrl = 'https://localhost:44342';
 
   const handleDrawer = (event, open) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -148,6 +150,7 @@ export default function AppRouter() {
             <Inventory
               navigate={navigate}
               setTitle={setCurrentTitle}
+              baseUrl={baseUrl}
               user={user}
             />
           )}
@@ -158,6 +161,7 @@ export default function AppRouter() {
             <Suppliers
               navigate={navigate}
               setTitle={setCurrentTitle}
+              baseUrl={baseUrl}
               user={user}
             />
           )}
@@ -168,6 +172,7 @@ export default function AppRouter() {
             <Orders
               navigate={navigate}
               setTitle={setCurrentTitle}
+              baseUrl={baseUrl}
               user={user}
             />
           )}
@@ -178,6 +183,7 @@ export default function AppRouter() {
             <Users
               navigate={navigate}
               setTitle={setCurrentTitle}
+              baseUrl={baseUrl}
               user={user}
             />
           )}
