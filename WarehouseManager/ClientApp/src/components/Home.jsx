@@ -6,7 +6,7 @@ export default function Home(props) {
 
   useEffect(() => {
     setTitle('Home');
-    if (!user || user.type !== 'admin') {
+    if (!user) {
       navigate('/404');
     }
   }, [props]);

@@ -23,7 +23,7 @@ import './styles/AppRouter.scss';
 export default function AppRouter() {
   const [currentTitle, setCurrentTitle] = useState('');
   const [user, setUser] = useState({
-    type: '',
+    accountType: '',
   });
   const [drawer, toggleDrawer] = useState(false);
 
@@ -41,7 +41,7 @@ export default function AppRouter() {
   const baseUrl = 'https://localhost:44342';
 
   const handleDrawer = (event, open) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (event.accountType === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
     toggleDrawer(open);
@@ -50,7 +50,7 @@ export default function AppRouter() {
   const handleLogout = () => {
     // Reset User Object
     setUser({
-      type: '',
+      accountType: '',
     });
     // Navigate to Login Page
     navigate('/');
@@ -71,7 +71,7 @@ export default function AppRouter() {
         >
           <List>
             {pages.map((page) => (
-              (page.access.includes(user.type))
+              (page.access.includes(user.accountType))
               && (
               <ListItem
                 button
@@ -119,7 +119,7 @@ export default function AppRouter() {
             component="div"
             sx={{ flexGrow: 1, textAlign: 'end' }}
           >
-            { user.type.toLocaleUpperCase() }
+            { user.accountType.toLocaleUpperCase() }
           </Typography>
         </Toolbar>
       </AppBar>
@@ -131,6 +131,7 @@ export default function AppRouter() {
             <Login
               navigate={navigate}
               setUser={setUser}
+              baseUrl={baseUrl}
             />
           )}
         />
