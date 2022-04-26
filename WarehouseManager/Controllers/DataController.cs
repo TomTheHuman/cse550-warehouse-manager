@@ -17,17 +17,19 @@ namespace WarehouseManager.Controllers
         private readonly SQLOrderRepository _OrderRepository;
         private readonly SQLLocationRepository _LocationRepository;
         private readonly SQLSupplierRepository _SupplierRepository;
-
-        public DataController(  SQLInventoryItemRepository inventoryItemRepository, 
-                                SQLOrderRepository orderRepository, 
-                                SQLLocationRepository locationRepository, 
-                                SQLSupplierRepository supplierRepository)
+        private readonly SQLApplicationUserRepository _ApplicationUserRepository;
+        public DataController(SQLInventoryItemRepository inventoryItemRepository,
+                                SQLOrderRepository orderRepository,
+                                SQLLocationRepository locationRepository,
+                                SQLSupplierRepository supplierRepository,
+                                SQLApplicationUserRepository applicationUserRepository
+                                )
         {
             this._InventoryItemRepository = inventoryItemRepository;
             this._OrderRepository = orderRepository;
             this._LocationRepository = locationRepository;
             this._SupplierRepository = supplierRepository;
-
+            this._ApplicationUserRepository = applicationUserRepository;
         }
 
         //InventoryItem Section
@@ -46,7 +48,7 @@ namespace WarehouseManager.Controllers
         [HttpPost("AddInventoryItem")]
         public IActionResult AddInventoryItem([FromBody] InventoryItem inventoryItem)
         {
-            if(inventoryItem == null)
+            if (inventoryItem == null)
             {
                 return BadRequest(inventoryItem);
             }
@@ -135,7 +137,7 @@ namespace WarehouseManager.Controllers
         }
 
         //Location Section
-        [HttpGet("GetOrders")]
+        [HttpGet("GetLocations")]
         public IEnumerable<Location> GetLocations()
         {
             return _LocationRepository.GetLocations().ToList();
@@ -237,5 +239,58 @@ namespace WarehouseManager.Controllers
 
             return Ok(deletedSupplier);
         }
+
+        //User Section
+        [HttpGet("GetUsers")]
+        public IEnumerable<ApplicationUser> GetUsers()
+        {
+            return _ApplicationUserRepository.GetUsers().ToList();
+        }
+
+        [HttpGet("GetUserById/{UserId}")]
+        public ApplicationUser GetUserById([FromRoute] int UserId)
+        {
+            return _ApplicationUserRepository.GetUser(UserId);
+        }
+
+        [HttpPost("AddUser")]
+        public IActionResult AddUser([FromBody] ApplicationUser user)
+        {
+            if (user == null)
+            {
+                return BadRequest(user);
+            }
+
+            _ApplicationUserRepository.Add(user);
+
+            return Ok(user);
+        }
+
+        [HttpPost("UpdateUser")]
+        public IActionResult UpdateUser([FromBody] ApplicationUser updatedUser)
+        {
+            if (updatedUser == null)
+            {
+                return BadRequest(updatedUser);
+            }
+
+            _ApplicationUserRepository.Update(updatedUser);
+
+            return Ok(updatedUser);
+        }
+
+        [HttpPost("DeleteUser/{deletedUserId}")]
+        public IActionResult DeleteUser([FromRoute] int deletedUserId)
+        {
+            if (deletedUserId == 0)
+            {
+                return BadRequest(deletedUserId);
+            }
+
+            ApplicationUser deletedUser = _ApplicationUserRepository.Delete(deletedUserId);
+
+            return Ok(deletedUser);
+        }
+
     }
 }
