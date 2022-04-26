@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button, Grid, TextField, Typography,
 } from '@mui/material';
@@ -7,24 +7,30 @@ import { Warehouse } from '@mui/icons-material';
 import '../styles/Login.scss';
 
 function Login(props) {
-  const [username, setUsername] = useState('');
+  const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [incorrect, setIncorrect] = useState(false);
+  const [users, setUsers] = useState([]);
+  const { baseUrl } = props;
 
-  /*
-    TODO Write function to authenticate credentials with backend
-    then fetch user information and set user in AppRouter state
-  */
+  useEffect(() => {
+    fetch(`${baseUrl}/api/GetUsers`)
+      .then((res) => res.json())
+      .then((res) => setUsers(res));
+  }, []);
+
   function handleLogin() {
     const { setUser, navigate } = props;
     // Create and set user object when authenticated
-    if (username.length > 0 && password.length > 0) {
-      const currentUser = {
-        username,
-        password,
-        type: 'admin',
-      };
-      setUser(currentUser);
-      navigate('/home');
+    if (userName.length > 0 && password.length > 0) {
+      const userIndex = users.findIndex((user) => user.userName === userName);
+      if (userIndex >= 0 && password === users[userIndex].passwordHash) {
+        const currentUser = users[userIndex];
+        setUser(currentUser);
+        navigate('/home');
+      } else {
+        setIncorrect(true);
+      }
     }
   }
 
@@ -47,15 +53,17 @@ function Login(props) {
         </Grid>
         <TextField
           className="form-input"
+          color={incorrect ? 'error' : undefined}
           id="outline-basic"
           variant="filled"
           label="Username"
           type="text"
-          value={username}
+          value={userName}
           onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
           className="form-input"
+          color={incorrect ? 'error' : undefined}
           id="outlined-basic"
           variant="filled"
           type="password"
@@ -63,6 +71,7 @@ function Login(props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        {incorrect && <Typography variant="body1" color="error">Username or password incorrect.</Typography>}
         <Button
           className="form-button"
           id="pasword-button"
