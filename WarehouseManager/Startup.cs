@@ -32,6 +32,7 @@ namespace WarehouseManager
             services.AddScoped<SQLOrderRepository>();
             services.AddScoped<SQLLocationRepository>();
             services.AddScoped<SQLSupplierRepository>();
+            services.AddScoped<SQLApplicationUserRepository>();
 
 
             services.AddDbContext<ApplicationDbContext>(options =>
