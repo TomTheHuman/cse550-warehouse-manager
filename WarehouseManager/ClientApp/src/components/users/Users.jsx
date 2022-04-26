@@ -7,59 +7,30 @@ import {
 
 import '../../styles/Users.scss';
 
-export default function Inventory(props) {
-  const [users, setUsers] = useState([]);
+// function getUsers() {
+//   axios.get('https://localhost:3001/')
+// }
+
+export default function Users(props) {
+  const [users, setUsers] = useState(null);
   const [open, setOpen] = useState(false);
   const [action, setAction] = useState('');
 
   // Form Field State Values
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
+  const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [accountType, setAccountType] = useState('admin');
   const types = ['admin', 'user'];
 
+  const { setTitle, baseUrl } = props;
+
   useEffect(() => {
-    const { setTitle } = props;
     setTitle('Users');
-    setUsers([
-      {
-        id: 1,
-        firstName: 'Admin',
-        lastName: '1',
-        username: 'admin1',
-        type: 'admin',
-      },
-      {
-        id: 2,
-        firstName: 'Admin',
-        lastName: '2',
-        username: 'admin2',
-        type: 'admin',
-      },
-      {
-        id: 3,
-        firstName: 'Admin',
-        lastName: '3',
-        username: 'admin3',
-        type: 'admin',
-      },
-      {
-        id: 4,
-        firstName: 'User',
-        lastName: '1',
-        username: 'user1',
-        type: 'user',
-      },
-      {
-        id: 5,
-        firstName: 'User',
-        lastName: '2',
-        username: 'user2',
-        type: 'user',
-      },
-    ]);
+    fetch(`${baseUrl}/api/GetUsers`)
+      .then((res) => res.json())
+      .then((res) => setUsers(res));
   }, []);
 
   function handleDelete() {
@@ -83,17 +54,33 @@ export default function Inventory(props) {
 
   function handleSubmit() {
     if (action === 'edit') {
-      // TODO patch object
+      fetch(`${baseUrl}/api/UpdateUser`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          userName,
+          passwordHash: password,
+          accountType,
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
     } else if (action === 'add') {
       // TODO create object
     }
   }
 
   function handleEditUser(user) {
+    console.log(users);
     setFirstName(user.firstName);
     setLastName(user.lastName);
-    setUsername(user.username);
-    setAccountType(user.type);
+    setUsername(user.userName);
+    setPassword(user.passwordHash);
+    setAccountType(user.accountType);
     setAction('edit');
     setOpen(true);
   }
@@ -113,36 +100,36 @@ export default function Inventory(props) {
       </Box>
       <Box className="data-grid-container">
         <List>
-          {users.map((user) => (
-            <ListItem
-              key={user.id}
-              divider
-              secondaryAction={(
-                <Box>
-                  <IconButton
-                    edge="end"
-                    aria-label="edit"
-                    onClick={() => handleEditUser(user)}
-                  >
-                    <Edit />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    onClick={() => handleDelete(user.id)}
-                  >
-                    <Delete />
-                  </IconButton>
-                </Box>
-
+          {users
+            && (users.map((user) => (
+              <ListItem
+                key={user.id}
+                divider
+                secondaryAction={(
+                  <Box>
+                    <IconButton
+                      edge="end"
+                      aria-label="edit"
+                      onClick={() => handleEditUser(user)}
+                    >
+                      <Edit />
+                    </IconButton>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => handleDelete(user.id)}
+                    >
+                      <Delete />
+                    </IconButton>
+                  </Box>
             )}
-            >
-              <ListItemText
-                primary={`${user.firstName} ${user.lastName}`}
-                secondary={user.type.toLocaleUpperCase()}
-              />
-            </ListItem>
-          ))}
+              >
+                <ListItemText
+                  primary={`${user.firstName} ${user.lastName}`}
+                  secondary={user.accountType.toLocaleUpperCase()}
+                />
+              </ListItem>
+            )))}
         </List>
       </Box>
       <Drawer
@@ -178,7 +165,7 @@ export default function Inventory(props) {
             type="text"
             className="form-input"
             label="Username"
-            value={username}
+            value={userName}
             onChange={(e) => setUsername(e.target.value)}
           />
           <TextField
@@ -200,7 +187,10 @@ export default function Inventory(props) {
               onChange={(e) => setAccountType(e.target.value)}
             >
               {types.map((type) => (
-                <MenuItem value={type.toLocaleUpperCase()}>
+                <MenuItem
+                  key={type}
+                  value={type.toLocaleUpperCase()}
+                >
                   {type.toLocaleUpperCase()}
                 </MenuItem>
               ))}

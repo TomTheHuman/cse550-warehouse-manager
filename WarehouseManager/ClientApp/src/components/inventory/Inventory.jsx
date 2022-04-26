@@ -57,25 +57,13 @@ export default function Inventory(props) {
   const [price, setPrice] = useState('');
   const [locationId, setLocationId] = useState('');
 
+  const { setTitle, baseUrl } = props;
+
   useEffect(() => {
-    const { setTitle } = props;
     setTitle('Inventory');
-    setData([{
-      id: 1,
-      description: 'Test',
-      manufacturer: 'ACME',
-      quantityInStock: 10,
-      quantityOnOrder: 15,
-      price: '$10.50',
-    },
-    {
-      id: 2,
-      description: 'Fake',
-      manufacturer: 'Walmart',
-      quantityInStock: 10,
-      quantityOnOrder: 15,
-      price: '$10.50',
-    }]);
+    fetch(`${baseUrl}/api/GetInventoryItems`)
+      .then((res) => res.json())
+      .then((res) => setData(res));
   }, []);
 
   function handleCloseDrawer() {

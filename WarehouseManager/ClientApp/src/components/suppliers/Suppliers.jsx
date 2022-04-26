@@ -10,14 +10,13 @@ export default function Inventory(props) {
   const [addOpen, setAddOpen] = useState(false);
   const [newSupplier, setNewSupplier] = useState('');
 
+  const { setTitle, baseUrl } = props;
+
   useEffect(() => {
-    const { setTitle } = props;
     setTitle('Suppliers');
-    setSuppliers([
-      { id: 1, name: 'Tom Nook Inc.' },
-      { id: 2, name: 'Glasses Plus' },
-      { id: 3, name: 'Re-Tail International' },
-    ]);
+    fetch(`${baseUrl}/api/GetSuppliers`)
+      .then((res) => res.json())
+      .then((res) => setSuppliers(res));
   }, []);
 
   function handleCloseDrawer() {
